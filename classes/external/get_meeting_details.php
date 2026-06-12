@@ -91,7 +91,18 @@ class get_meeting_details extends external_api {
         $sql = 'SELECT *
                   FROM {tiny_teamsmeeting}
                  WHERE ' . $DB->sql_compare_text('link') . ' = ' . $DB->sql_compare_text(':url') . ' ORDER BY id ASC';
-        $records = $DB->get_records_sql($sql, ['url' => $url]);
+
+        // Normalise percent-encoding to uppercase and try lookup.
+        $normalised = preg_replace_callback('/%[0-9a-f]{2}/i', fn($m) => strtoupper($m[0]), $url);
+        $records = $DB->get_records_sql($sql, ['url' => $normalised]);
+
+        if (empty($records)) {
+            // Fallback for rows created before normalisation: try lowercase hex digits.
+            $lowercased = preg_replace_callback('/%[0-9A-F]{2}/', fn($m) => strtolower($m[0]), $normalised);
+            if ($lowercased !== $normalised) {
+                $records = $DB->get_records_sql($sql, ['url' => $lowercased]);
+            }
+        }
 
         $count = count($records);
         if ($count == 0) {
