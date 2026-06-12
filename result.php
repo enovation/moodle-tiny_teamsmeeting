@@ -44,6 +44,11 @@ if ($viewexisting) {
 }
 
 $meetinglink = optional_param('link', null, PARAM_URL);
+// Normalise percent-encoding to uppercase (RFC 3986) so stored links and
+// lookups remain consistent after Moodle re-saves HTML (which uppercases %xx).
+if ($meetinglink !== null) {
+    $meetinglink = preg_replace_callback('/%[0-9a-f]{2}/i', fn($m) => strtoupper($m[0]), $meetinglink);
+}
 $title = optional_param('title', null, PARAM_TEXT);
 $preview = optional_param('preview', null, PARAM_CLEANHTML);
 $optionslink = optional_param('options', null, PARAM_URL);
