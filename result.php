@@ -93,8 +93,6 @@ if (!empty($preview)) {
     $meetingdata->link = $meetinglink;
     $meetingdata->options = $meetingoptions;
     $meetingdata->timecreated = time();
-    $meetingdata->userid = $USER->id;
-    $meetingdata->contextid = $context->id;
     $DB->insert_record('tiny_teamsmeeting', $meetingdata);
 } else if (!empty($optionslink)) {
     if (filter_var($optionslink, FILTER_VALIDATE_URL)) {
