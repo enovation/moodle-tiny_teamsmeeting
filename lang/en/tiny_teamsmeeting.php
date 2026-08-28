@@ -30,6 +30,8 @@ $string['pluginname'] = 'Teams Meeting';
 // Settings.
 $string['settings_meetings_app_link'] = 'Meetings App URL';
 $string['settings_meetings_app_link_desc'] = 'This is URL of meeting app location';
+$string['settings_requirecapnocourse'] = 'Require capability when course ID is missing';
+$string['settings_requirecapnocourse_desc'] = 'If enabled, a system-level capability check will be performed when the course ID is not provided. Microsoft Teams might drop the course ID during the process, so disabling this can prevent permission errors.';
 
 // Capability.
 $string['teamsmeeting:add'] = 'Add Teams Meeting';

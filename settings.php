@@ -35,4 +35,10 @@ if ($ADMIN->fulltree) {
     $default = 'https://enomsteams.z16.web.core.windows.net';
     $setting = new admin_setting_configtext('tiny_teamsmeeting/meetingapplink', $name, $desc, $default);
     $settings->add($setting);
+
+    $name = new lang_string('settings_requirecapnocourse', 'tiny_teamsmeeting');
+    $desc = new lang_string('settings_requirecapnocourse_desc', 'tiny_teamsmeeting');
+    $default = 0;
+    $setting = new admin_setting_configcheckbox('tiny_teamsmeeting/requirecapnocourse', $name, $desc, $default);
+    $settings->add($setting);
 }

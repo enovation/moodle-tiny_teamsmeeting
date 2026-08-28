@@ -61,7 +61,9 @@ if ($viewexisting) {
         $context = context_system::instance();
     }
 
-    require_capability('tiny/teamsmeeting:add', $context);
+    if ($courseid || get_config('tiny_teamsmeeting', 'requirecapnocourse')) {
+        require_capability('tiny/teamsmeeting:add', $context);
+    }
 }
 
 $meetinglink = optional_param('link', null, PARAM_URL);
